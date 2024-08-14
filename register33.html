@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iofrm</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="iofrm-style.css">
+    <link rel="stylesheet" type="text/css" href="iofrm-theme39.css">
+</head>
+<body>
+    <div class="form-body without-side">
+        <div class="iofrm-layout">
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="image-container">
+                        <img src="graphic13-1.svg" alt="">
+                    </div>
+                    <div class="form-items">
+                        <img class="img-float" src="graphic13-2.svg" alt="">
+                        <div class="website-logo-inside logo-normal">
+                            <a href="index.html">
+                                <div class="logo">
+                                    <img class="logo-size" src="logo-light.svg" alt="">
+                                </div>
+                            </a>
+                        </div>
+                        <h3 class="font-md">Register new account</h3>
+                        <p>Access to the most powerfull tool in the entire design and web industry.</p>
+                        <form id = "registerForm" action = "/register" method = "POST">
+                            <input class="form-control" type="text" name="name" placeholder="Full Name" required>
+                            <input class="form-control" type="email" name="email" placeholder="E-mail Address" required>
+                            <input class="form-control" type="password" name="password" placeholder="Password" required>
+                            <div class="form-button d-flex">
+                                <button id="submit" type="submit" class="btn btn-primary">Register</button>
+                                <a href="./login33.html" class="btn btn-outline-primary">Login</a>
+                            </div>
+                        </form>
+                        <div class="other-links social-with-title">
+                            <div class="text">Or register with</div>
+                            <a href="#"><i class="fab fa-facebook-f"></i>Facebook</a><a href="#"><i class="fab fa-google"></i>Google</a><a href="#"><i class="fab fa-linkedin-in"></i>Linkedin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="jquery.min.js"></script>
+<script src="popper.min.js"></script>
+<script src="bootstrap.bundle.min.js"></script>
+<script src="main.js"></script>
+<script>
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+    
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+    
+        fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, email, password }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message === 'Registration successful') {
+                alert(data.message);
+                window.location.href = data.redirect;
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+    
+</script>
+</body>
+</html>
